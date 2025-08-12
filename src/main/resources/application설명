@@ -21,4 +21,7 @@ spring.jpa.hibernate.ddl-auto=update
 # - update 옵션: 변경 사항만 저장 (개발 단계에서만 유용! 운영 시 제거 권장!)
 #           >> 가능한 범위 내에서 ADD/ALTER 등을 시도해 스키마를 엔티티에 맞춰 수정
 
+spring.jpa.hibernate.ddl-auto=validate
+# : 테이블 이름이 같아야함
+
 # spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver (생략)
