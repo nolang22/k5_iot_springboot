@@ -30,7 +30,7 @@ public class A_TestServiceImpl implements A_TestService {
     }
 
     @Override
-    public A_Test getTestById(Long testId) {
+    public A_Test getTestByTestId(Long testId) {
         Optional<A_Test> optionalTestEntity = testRepository.findById(testId);
 
         A_Test test = optionalTestEntity.orElseThrow(() ->
@@ -40,7 +40,7 @@ public class A_TestServiceImpl implements A_TestService {
 
     @Override
     public A_Test updateTest(Long testId, A_Test test) {
-        A_Test originalTest = getTestById(testId);
+        A_Test originalTest = getTestByTestId(testId);
 
         originalTest.setName(test.getName());
 

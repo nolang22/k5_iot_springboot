@@ -3,7 +3,6 @@ package com.example.k5_iot_springboot.controller;
 import com.example.k5_iot_springboot.entity.A_Test;
 import com.example.k5_iot_springboot.service.A_TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class A_TestController {
     @Autowired // 필드 주입 방식
     A_TestService testService;
 
-    // @메서드Mapping("추가URI시정")
+    // @메서드Mapping("추가URI지정")
     // : 메서드(POST/GET/PUT/DELETE) + localhost:8080/RequestMapping경로/추가URI
     @PostMapping
     public A_Test createTest(@RequestBody A_Test test) {
@@ -42,7 +41,7 @@ public class A_TestController {
 
     @GetMapping("/{testId}")
     public A_Test getTestById(@PathVariable Long testId) {
-        A_Test result = testService.getTestById(testId);
+        A_Test result = testService.getTestByTestId(testId);
         return result;
     }
 

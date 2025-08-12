@@ -18,3 +18,14 @@ CREATE TABLE IF NOT EXISTS test (
 );
 
 SELECT * FROM test;
+
+# 0812 (B_student)
+CREATE TABLE IF NOT EXISTS students (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    UNIQUE KEY uq_name_email (name, email)
+    # : name + email 조합이 유일하도록 설정
+);
+
+SELECT * FROM students;
