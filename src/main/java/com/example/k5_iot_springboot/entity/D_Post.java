@@ -57,6 +57,7 @@ public class D_Post {
             // : 컬렉션을 지연 로딩
             // - 댓글이 필요할 때만 실제 SELECT를 수행하여 불필요한 로딩을 방지
     )
+    @Builder.Default //없을 시 초기화된 필드 값을 무시하고, builder에서 따로 값이 설정되지 않으면 null로 둔다는 경고
     private List<D_Comment> comments = new ArrayList<>();
     // - 1 : N 관계 시 컬렉션은 NPE 방지를 위해 즉시 초기화
     // - JPA가 내부적으로 컬렉션 프록시로 교체 가능
