@@ -2,6 +2,10 @@ package com.example.k5_iot_springboot.dto.f_board.response;
 
 import com.example.k5_iot_springboot.common.utils.DateUtils;
 import com.example.k5_iot_springboot.entity.F_Board;
+import lombok.Builder;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /*  게시글 응답 DTO 모음
     - 프론트 사용성을 높이기 위해 KST 문자열과 UTC ISO 문자열을 함께 제공
@@ -53,4 +57,44 @@ public class BoardResponseDto {
             );
         }
     }
+
+    // === 페이지 정보 메타 === //
+    @Builder
+    public record PageMeta(
+            int page,           // 현재 페이지(0~based)
+            int size,           // 페이지 크기
+            long totalElements, // 전체 개수
+            int totalPages,     // 전체 페이지
+            boolean hasNext,
+            boolean hasPrevious,
+            String sort         // 정렬 정보(문자열화)
+    ) {
+        public static PageMeta from(Page<?> p) {
+            String sort = p.getSort().toString(); // ex) createdAt: DESC
+            return PageMeta.builder()
+                    .page(p.getNumber())
+                    .size(p.getSize())
+                    .totalElements(p.getTotalElements())
+                    .totalPages(p.getTotalPages())
+                    .hasNext(p.hasNext())
+                    .hasPrevious(p.hasPrevious())
+                    .sort(sort)
+                    .build();
+        }
+    }
+    // === OffSet 기반 응답 === //
+    @Builder
+    public record PageResponse(
+            List<SummaryResponse> content,
+            PageMeta meta
+    ) {}
+
+    // === Cursor 기반 응답 ===
+    @Builder
+    public record SliceResponse(
+            List<SummaryResponse> content,
+            boolean hasNext,
+            Long nextCursor
+    ) {}
 }
+

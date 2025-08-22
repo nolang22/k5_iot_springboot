@@ -98,3 +98,11 @@ CREATE TABLE IF NOT EXISTS `boards` (
   COMMENT = '게시글';
   
 SELECT * FROM boards;
+
+# 0822 (S_Pagination)
+
+
+
+
+
+USE k5_iot_springboot;
