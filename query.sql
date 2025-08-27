@@ -99,8 +99,8 @@ CREATE TABLE IF NOT EXISTS `boards` (
   
 SELECT * FROM boards;
 
-# 0825 (G_user)
-
+# 0822 (G_user)
+-- 사용자 테이블
 CREATE TABLE IF NOT EXISTS `users` (
 	id BIGINT NOT NULL AUTO_INCREMENT,
     login_id VARCHAR(50) NOT NULL,
@@ -121,6 +121,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   COMMENT = '사용자';
 
 SELECT * FROM users;
+
+
 
 
 

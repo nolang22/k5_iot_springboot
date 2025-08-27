@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/*  ORM에서 사용되는 주요 어노테이션
+/*  ORM 에서 사용되는 주요 어노테이션
     1. @Entity
         : 클래스를 DB 테이블과 매핑할 때 사용
         - name 옵션 추가
