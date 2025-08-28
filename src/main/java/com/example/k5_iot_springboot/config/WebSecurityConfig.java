@@ -44,16 +44,16 @@ public class WebSecurityConfig {
     private final JsonAccessDeniedHandler accessDeniedHandler;
 
     // CORS 관련 속성을 properties 에서 주입받아 콤마(,)로 분리하여 저장하는 데이터
-    @Value("${cors.alloewd-origins:*}") // http://app/example/com, https://app/example/com
+    @Value("${cors.allowed-origins:*}") // http://app/example/com, https://app/example/com
     private String allowedOrigins;
 
-    @Value("${cors.alloewd-headers:*}")
+    @Value("${cors.allowed-headers:*}")
     private String allowedHeaders;
 
-    @Value("${cors.alloewd-methods:GET,POST,PUT,PATCH,DELETE,OPTIONS}")
+    @Value("${cors.allowed-methods:GET,POST,PUT,PATCH,DELETE,OPTIONS}")
     private String allowedMethods;
 
-    @Value("${cors.exposed-header:Authorization,Set-Cookie}")
+    @Value("${cors.exposed-headers:Authorization,Set-Cookie}")
     private String exposedHeaders; // 필요한 헤더만 노출
 
     @Value("${security.h2-console:true}") // 로컬 개발 시 true - 개발용 H2 콘솔 접근 허용 여부 (아래에서 권한 부여)
@@ -149,26 +149,28 @@ public class WebSecurityConfig {
 
                     // SecurityFilterChain URL 보안 규칙
                     auth
-                        // PreFlight 허용
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                            // PreFlight 허용
+                            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // === URL 레벨에서 1차 차단 (+ 컨트롤러 메서드에서 @PreAuthorize로 2차 방어) === //
-                        // 인증/회원가입 등 공개 엔드포인트 - 토큰이 필요없는 기능
-                        .requestMatchers("/api/v1/auth/**").permitAll()
+                            // === URL 레벨에서 1차 차단 (+ 컨트롤러 메서드에서 @PreAuthorize로 2차 방어) === //
+                            // 인증/회원가입 등 공개 엔드포인트 - 토큰이 필요없는 기능
+                            .requestMatchers("/api/v1/auth/**").permitAll()
 
-                        // 마이페이지(내 정보) - 인증 필요 (모든 역할 가능)
-                        .requestMatchers("/api/v1/users/me/**").authenticated()
+                            // 마이페이지(내 정보) - 인증 필요 (모든 역할 가능)
+                            .requestMatchers("/api/v1/users/me/**").authenticated()
 
-                        // boards 접근제어
-                        .requestMatchers(HttpMethod.GET,    "api/v1/boards/**").hasAnyRole("USER", "MANGER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST,   "api/v1/boards/**").hasAnyRole("MANGER", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT,    "api/v1/boards/**").hasAnyRole("MANGER", "ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "api/v1/boards/**").hasAnyRole("ADMIN")
+                            // boards 접근제어
+                            .requestMatchers(HttpMethod.GET, "api/v1/boards/**").hasAnyRole("USER", "MANGER", "ADMIN")
+                            .requestMatchers(HttpMethod.POST, "api/v1/boards/**").hasAnyRole("MANGER", "ADMIN")
+                            .requestMatchers(HttpMethod.PUT, "api/v1/boards/**").hasAnyRole("MANGER", "ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "api/v1/boards/**").hasAnyRole("ADMIN")
 
-                        // ADMIN 전용 권한 관리 API
-                        .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN")
+                            // article 접근 제어
+                            .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                            // ADMIN 전용 권한 관리 API
+                            .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN")
 
-                        .anyRequest().authenticated(); // 나머지는 인증 필요 - JWT 토큰이 있어야 접근 가능
+                            .anyRequest().authenticated(); // 나머지는 인증 필요 - JWT 토큰이 있어야 접근 가능
                     }
                 );
 
