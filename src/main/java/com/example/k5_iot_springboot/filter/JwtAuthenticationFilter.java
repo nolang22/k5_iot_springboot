@@ -25,7 +25,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -46,9 +45,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = JwtProvider.BEARER_PREFIX;
 
     private final JwtProvider jwtProvider; // 의존성 주입
-    private final G_UserRepository gUserRepository;
-    private final UserPrincipalMapper userPrincipalMapper;
     private final G_UserRepository g_UserRepository;
+    private final UserPrincipalMapper principalMapper;
 
     /*  OncePerRequestFilter 내부 추상 메서드 - 반드시 구현!
             >> 스프링 시큐리티 필터가 매 요청마다 호출하는 핵심 메서드
@@ -122,7 +120,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //      >> 권한명 앞에 "ROLE_" 접두사가 필요
             //Collection<? extends GrantedAuthority> authorities = toAuthorities(roles);
 
-            UserPrincipal principal = userPrincipalMapper.map(user);
+            UserPrincipal principal = principalMapper.map(user);
 
             // 9) SecurityContext에 인증 저장
             //      : 인증 객체를 만들고 SecurityContext에 저장

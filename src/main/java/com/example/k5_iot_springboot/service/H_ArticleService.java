@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 public interface H_ArticleService {
+
     ResponseDto<ArticleDetailResponse> createArticle(UserPrincipal principal, @Valid ArticleCreateRequest request);
     ResponseDto<List<ArticleListResponse>> getAllArticles();
     ResponseDto<ArticleDetailResponse> getArticleById(Long id);

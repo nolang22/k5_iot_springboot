@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Positive;
 import java.util.Set;
 
 public class RoleManageRequest {
-    /* 특정 사용자(userId)의 권한을 해당 Set으로 교체(갱신) */
+    /* 특정 사용자(userId)의 권한을 해당 Set 으로 교체(갱신) */
     public record UpdateRolesRequest(
             @NotNull(message = "userId는 필수입니다.")
             @Positive(message = "userId는 양수여야 합니다.")

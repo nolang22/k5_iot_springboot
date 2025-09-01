@@ -166,7 +166,7 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.DELETE, "api/v1/boards/**").hasAnyRole("ADMIN")
 
                             // article 접근 제어
-                            .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/**").permitAll() // "/api/v1/article/**"
                             // ADMIN 전용 권한 관리 API
                             .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN")
 

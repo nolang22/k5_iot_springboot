@@ -23,7 +23,8 @@ package com.example.k5_iot_springboot.이론;
             "Authorization: Bearer <JWT 토큰값>
         3) 서버는 전달받은 JWT를 검증하여 요청 사용자의 인증 여부 판단
 
-    cf) Bearer Token
+    cf
+    ) Bearer Token
         : 소지자(Bearer)
         - 토큰을 소자한 사람(클라이언트)이 곧 인증된 사용자임을 의미
         - OAuth 2.0 인증 방식 중 하나, API 요청 시 인증을 위해 사용

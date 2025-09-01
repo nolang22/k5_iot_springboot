@@ -61,12 +61,13 @@ public class G_User extends BaseTimeEntity {
 
     // 여러 권한 보유
     @ElementCollection(fetch = FetchType.LAZY) // JWT에 roles를 저장하는 구조 - LAZY 가능
+    // fetch 가져오다. LAZY 게으름
+    // 연관된 엔티티를 필요한 메인 DB 에서 로딩
     @CollectionTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_roles_user"))
             ,
-            uniqueConstraints = @UniqueConstraint(name = "uk_user_roles", columnNames = {"user_id","role"})
-    )
+            uniqueConstraints = @UniqueConstraint(name = "uk_user_roles", columnNames = {"user_id","role"}))
     @Column(name = "role", length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<RoleType> roles = new HashSet<>();

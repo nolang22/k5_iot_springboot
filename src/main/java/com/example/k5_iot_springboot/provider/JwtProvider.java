@@ -50,15 +50,14 @@ public class JwtProvider {
     public static final String BEARER_PREFIX = "Bearer "; // removeBearer 에서 사용, 마지막 공백 필수!
     /* 커스텀 클레임 키 */
     public static final String CLAIM_ROLES = "roles";
-
     /* 서명용 비밀키, 엑세스 토큰 만료시간(ms), 만료 직후 허용할 시계 오차(s) */
     // 환경 변수에 지정한 비밀키와 만료 시간 저장 변수 선언
     private final SecretKey key;
     private final long jwtExpirationMs;
     private final int clockSkewSeconds;
-
-    /* 검증/파싱 파서: 피서를 생성자에서 1회 구성하여 재사용 - 성능/일관성 보장 (JJWT의 파서 객체) */
+    /* 검증/파싱 파서: 파서를 생성자에서 1회 구성하여 재사용 - 성능/일관성 보장 (JJWT의 파서 객체) */
     private final JwtParser parser;
+
 
     // === 생성자: 환경변수로부터 설정 주입 + 파서 준비 ===
     public JwtProvider(
@@ -77,9 +76,8 @@ public class JwtProvider {
             // : HS256에 적성한 강도의 키를 강제하여 보안 강화
             throw new IllegalArgumentException("jwt.secret은 항상 256비트 이상을 권장합니다.");
         }
-
         // HMAC-SHA 알고리즘으로 암호화된 키 생성
-        this.key = Keys.hmacShaKeyFor(secretBytes); // HMAC-SHA용 SecretKey 객체 생성
+        this.key = Keys.hmacShaKeyFor(secretBytes); // HMAC-SHA 용 SecretKey 객체 생성
         this.jwtExpirationMs = jwtExpirationMs;
         this.clockSkewSeconds = Math.max(clockSkewSeconds, 0); // 음수 방지
 
@@ -87,11 +85,11 @@ public class JwtProvider {
                 .verifyWith(this.key) // 해당 키로 서명 검증을 수행하는 파서 (이후 파싱마다 반복 설정 X)
                 .build();
     }
+
+
     /*  =================
         토큰 생성
         ================= */
-
-
     /*  엑세스 토큰 생성
         @Param username sub(Subject)에 저장할 사용자 식별자
         @Param roles    권한 목록(중복 제거용 Set 권장) - JSON 배열로 직렬화
@@ -117,7 +115,6 @@ public class JwtProvider {
     /*  =================
         Bearer 처리
         ================= */
-
     /* HTTP Authorization 헤더에서 "Bearer " 제거 */
     public String removeBearer(String bearerToken) { // 입력: "Bearer <token>
         if (bearerToken == null || !bearerToken.startsWith(BEARER_PREFIX)) {
@@ -130,7 +127,6 @@ public class JwtProvider {
     /*  =================
         검증 / 파싱
         ================= */
-
     /*  내부 파싱(검증 포함) - 서명 검증 + 구조 검증된 뒤 Claims(페이로드)를 반환
             >> 만료 시 clock-skew 허용 옵션 */
     private Claims parseClaimsInternal(String token, boolean allowClockSkewOnExpiry) {

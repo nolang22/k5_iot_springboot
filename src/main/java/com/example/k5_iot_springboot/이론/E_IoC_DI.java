@@ -94,7 +94,7 @@ class BookStore2 {
             > 자바 설정 기반 @Configuration 클래스 안에 @Bean 메서드로 수동 등록
 
         - 네이밍 규칙
-            > 클래스명의 첫 글자를 소문자ㅗㄹ 바꾼 이름이 기본 번 이름
+            > 클래스명의 첫 글자를 소문자로 바꾼 이름이 기본 빈 이름
             EX) Book -> book, BookStore -< bookStore 등
                 이름 설정(@Component("bookSpenial")
  */
