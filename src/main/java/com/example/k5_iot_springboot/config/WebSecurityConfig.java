@@ -166,9 +166,22 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.DELETE, "api/v1/boards/**").hasAnyRole("ADMIN")
 
                             // article 접근 제어
-                            .requestMatchers(HttpMethod.GET, "/**").permitAll() // "/api/v1/article/**"
+                            .requestMatchers(HttpMethod.GET, "/api/v1/article/**").permitAll()
+
+                            // product 접근 제어
+                            .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasRole("ADMIN")
+
+                            // stocks 접근 제어
+                            .requestMatchers(HttpMethod.GET, "/api/v1/stocks/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/v1/stocks/**").hasAnyRole("ADMIN", "MANAGER")
+                            .requestMatchers(HttpMethod.PUT, "/api/v1/stocks/**").hasAnyRole("ADMIN", "MANAGER")
+
                             // ADMIN 전용 권한 관리 API
                             .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN")
+
+
 
                             .anyRequest().authenticated(); // 나머지는 인증 필요 - JWT 토큰이 있어야 접근 가능
                     }
