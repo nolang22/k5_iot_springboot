@@ -82,19 +82,19 @@ public class H_ArticleServiceImpl implements H_ArticleService {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER') or @authz.isArticleAuthor(#articleId, authentization)")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER') or @authz.isArticleAuthor(#id, authentication)")
     // Bean 으로 등록된 AuthorizationChecker를 어노테이션화 한 기능
     // cf) PreAuthorize | PostAuthorize 내부의 기본 변수
     //      - authentication: 현재 인증 객체
     //      - principal: authentication.getPrincipal() (주로 UserDetails 구현체)
     //      - #변수명: 메서드 파라미터 중 이름이 해당 변수명인 데이터
-    public ResponseDto<ArticleDetailResponse> updateArticle(UserPrincipal principal, Long articleId, ArticleUpdateRequest request) {
+    public ResponseDto<ArticleDetailResponse> updateArticle(UserPrincipal principal, Long id, ArticleUpdateRequest request) {
 
         validateTitleAndContent(request.title(), request.content());
 
-        if (articleId == null) throw new IllegalArgumentException("ARTICLE_ID_REQUIRED");
+        if (id == null) throw new IllegalArgumentException("ARTICLE_ID_REQUIRED");
 
-        H_Article article = articleRepository.findById(articleId)
+        H_Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ARTICLE_NOT_FOUND"));
 
         article.update(request.title(), request.content());
