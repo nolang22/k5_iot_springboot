@@ -9,6 +9,7 @@ package com.example.k5_iot_springboot.이론;
             : 책들 중 해당 isbn의 책을 GET 가져오기
             - 특정 리소스에 접근, 수정, 삭제에 사용
         >> GET, PUT, DELETE 사용 (POST 사용 X)
+        >> 단! 만들어진 id 검색 후 사용은 가능
 
         1) 리소스를 특정할 수 있는 PK 값을 주로 사용
         2) 경로 내에 {}로 값을 감싸서 표현

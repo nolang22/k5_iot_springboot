@@ -37,4 +37,5 @@ out/
 .vscode/
 
 ### secret properties ###
-application-secret.properties
+**/application-secret.properties
+#  **/없을시 경로값 적어줘야함 --src/main/resources/application-secret.properties
