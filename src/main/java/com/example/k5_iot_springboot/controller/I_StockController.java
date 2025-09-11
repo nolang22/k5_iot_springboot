@@ -51,4 +51,5 @@ public class I_StockController {
         ResponseDto<StockResponse.Response> responseDto = stockService.get(productId);
         return ResponseEntity.ok(responseDto);
     }
+
 }
