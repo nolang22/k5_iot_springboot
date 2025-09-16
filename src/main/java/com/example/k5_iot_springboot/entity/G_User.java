@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.management.relation.Role;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -84,7 +85,7 @@ public class G_User extends BaseTimeEntity {
 
     // 생성 편의 메서드
     @Builder
-    private G_User(String loginId, String password, String email, String nickname, Gender gender, Set<RoleType> roles) {
+    private G_User(String loginId, String password, String email, String nickname, Gender gender) {
         this.loginId = loginId;
         this.password = password;
         this.email = email;
@@ -134,3 +135,6 @@ public class G_User extends BaseTimeEntity {
                 .collect(Collectors.toUnmodifiableSet());
     }
 }
+// // 생성 편의 메서드
+//    @Builder
+//    private G_User(String loginId, String password, String email, String nickname, Gender gender) {
