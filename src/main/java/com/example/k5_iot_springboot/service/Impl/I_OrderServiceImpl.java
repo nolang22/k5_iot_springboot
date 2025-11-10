@@ -203,7 +203,7 @@ public class I_OrderServiceImpl implements I_OrderService {
 
     @Override
     @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN') or @authz.isSelf(#userId, authentication)")
-    public ResponseDto<List<OrderResponse.Detail>> search(UserPrincipal userPrincipal, Long userId, OrderStatus status, LocalDateTime from, LocalDateTime to) {
+    public ResponseDto<List<OrderResponse.Detail>> search(UserPrincipal userPrioncipal, Long userId, OrderStatus status, LocalDateTime from, LocalDateTime to) {
         List<OrderResponse.Detail> data = null;
 
         LocalDateTime fromUtc = DateUtils.kstToUtc(from);

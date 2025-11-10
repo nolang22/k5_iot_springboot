@@ -229,6 +229,14 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 SELECT * FROM articles;
 
+INSERT INTO articles (title, content, author_id, created_at, updated_at)
+values
+	('기사 1', '기사 1의 내용', 1, NOW(6), NOW(6)),
+	('기사 2', '기사 2의 내용', 2, NOW(6), NOW(6)),
+	('기사 3', '기사 3의 내용', 1, NOW(6), NOW(6)),
+	('기사 4', '기사 4의 내용', 3, NOW(6), NOW(6)),
+	('기사 5', '기사 5의 내용', 1, NOW(6), NOW(6)),
+	('기사 6', '기사 6의 내용', 3, NOW(6), NOW(6)),
 
 
 -- 0901 (주문 관리 시스템)
@@ -422,7 +430,15 @@ SELECT * FROM `orders`;
 SELECT * FROM `order_items`;
 SELECT * FROM `order_logs`;
 
+CREATE TABLE notice (
+	id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
+SELECT * FROM notice;
 
 
 USE k5_iot_springboot;

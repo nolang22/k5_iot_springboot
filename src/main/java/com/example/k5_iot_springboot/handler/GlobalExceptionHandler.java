@@ -117,10 +117,4 @@ public class GlobalExceptionHandler {
         log.warn("Internal Error: {}", e.getMessage());
         return fail(ErrorCode.INTERNAL_ERROR, null, null);
     }
-
-
-
-
-
-
 }
