@@ -236,7 +236,7 @@ values
 	('기사 3', '기사 3의 내용', 1, NOW(6), NOW(6)),
 	('기사 4', '기사 4의 내용', 3, NOW(6), NOW(6)),
 	('기사 5', '기사 5의 내용', 1, NOW(6), NOW(6)),
-	('기사 6', '기사 6의 내용', 3, NOW(6), NOW(6)),
+	('기사 6', '기사 6의 내용', 3, NOW(6), NOW(6));
 
 
 -- 0901 (주문 관리 시스템)
@@ -440,5 +440,16 @@ CREATE TABLE notice (
 
 SELECT * FROM notice;
 
+CREATE TABLE refresh_tokens (
+	id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL,
+    token VARCHAR(512) NOT NULL,
+    expiry BIGINT NOT NULL,
+    UNIQUE KEY `uk_refresh_username` (username),
+    UNIQUE KEY `uk_refresh_token` (token)
+)ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci
+  COMMENT = 'JWT Refresh Token 저장 테이블';
 
 USE k5_iot_springboot;
